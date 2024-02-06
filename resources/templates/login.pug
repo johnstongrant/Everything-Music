@@ -1,0 +1,18 @@
+include ./headers.pug
++headers('Login', ['/css/login.css'], ['/js/login.js'])
+header.banner_top
+    | Login to Everything Music
+.container
+  .login_box
+    form(action='/api/findUser' method='post')
+        div
+          label(for='username') username:
+          input#username(required='' type='text' name='username')
+        div
+          label(for='password') password:
+          input#password(required='' type='password' name='password')
+        div
+          input#login(type='submit' name='login_button' value='Login')
+
+footer.banner
+    | Property of Grant Johnston

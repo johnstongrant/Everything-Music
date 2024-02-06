@@ -1,0 +1,13 @@
+mixin navbar()
+  div.nav_bar
+    ul
+        li
+            a(href='/') Everything Music
+        li
+            a(target='_blank' href='/vinyl/1') Vinyl
+        li
+            a(target='_blank' href='/cd/1') CD
+        li
+            a(target='_blank' href='/playlist/1') Playlists
+        li 
+            a(id='account' target='_blank' href='/account' onclick='return validateForm()') Account 

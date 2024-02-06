@@ -1,0 +1,9 @@
+mixin headers(title, css_list, script_list)
+  doctype html 
+  head 
+    meta(charset='UTF-8')
+    title #{title}
+    each styl in css_list
+      link(rel='stylesheet' href= styl)
+    each scrpt in script_list 
+      script(defer='' src= scrpt)

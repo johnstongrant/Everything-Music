@@ -1,0 +1,12 @@
+include ./headers.pug
++headers('Logout', ['/css/login.css'], [])
+header.banner
+    | Sorry
+.container
+  .login_box
+    | It seems this user already exists. Please try logging in.
+    a(href='/login') Try again.
+
+
+footer.banner
+    | Property of Grant Johnston

@@ -1,0 +1,65 @@
+include ./headers.pug
+include ./nav_bar.pug
++headers('Account Page' , ['/css/main.css'], ['/js/main.js'])
+header.banner
+    | !{user}'s Page
+    .account_buttons
+        case user
+            when ""
+                a(href='/signup' target='_blank')
+                        button.signup Sign up
+                a(href='/login' target='_blank')
+                    button.login Login
+            default 
+                a(href='/logout' target='_blank')
+                    button.logout Logout
+.top 
+    .filter 
+        select#filter(name='filter')
+            option(value='like') Like Count 
+            option(value='time') Recent Posts 
+.container
+    .left
+        div.nav_bar
+            ul
+                li
+                    a(href='/') Everything Music
+                li
+                    a(target='_blank' href='/vinyl/1') Vinyl
+                li
+                    a(target='_blank' href='/cd/1') CD
+                li
+                    a(target='_blank' href='/playlist/1') Playlists
+                li 
+                    a(target='_blank' href='/logout') Logout 
+    .middle
+        .create
+            form(action='/add' method='post' onsubmit="return validateForm()")
+                div
+                    input#text_field(type='textarea' name='post_content' placeholder='Spin your discussion' minlength='1' maxlength='250')
+                div 
+                    select#category(name='category')
+                        option(value='vinyl') Vinyl 
+                        option(value='cd') CD 
+                        option(value='playlists') Playlists 
+                div
+                    input#post_button(type='submit' name='post_button' value='Post')
+        .personal
+            | Your Posts
+        if posts.length > 0
+            each post in posts 
+                .post(id=post.id)
+                    .message 
+                        textarea(id=post.id readonly) !{post.message} 
+                    .interact_buttons
+                        .edit 
+                            button(id=post.id).edit_button Edit post
+                        .like 
+                            button(id=post.id).like_button Like Count: !{post.like_count}
+                        .delete 
+                            button(id=post.id).delete_button Delete
+.bottom
+    button.prev Previous Page
+    button.next Next Page
+footer.banner
+    | Property of Grant Johnston

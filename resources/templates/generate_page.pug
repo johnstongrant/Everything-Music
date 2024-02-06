@@ -1,0 +1,65 @@
+include ./headers.pug
+include ./nav_bar.pug
+mixin generatePage(title,posts,user)
+    +headers(title , ['/css/main.css','https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'], ['/js/main.js'])
+    header.banner
+        | Welcome to !{title} !{user}
+        .account_buttons
+            case user
+                when ""
+                    a(href='/signup' target='_blank')
+                         button.signup 
+                            i.fa.fa-user-plus(aria-hidden='true')
+                                |   Sign Up
+                    a(href='/login' target='_blank')
+                        button.login 
+                            i.fa.fa-sign-in(aria-hidden='true')
+                                |   Login
+                default 
+                    a(href='/logout' target='_blank')
+                        button.logout 
+                            i.fa.fa-sign-out(aria-hidden='true')
+                                |   Log out
+    .top 
+        .filter 
+            select#filter(name='filter')
+                option(value='like') Like Count 
+                option(value='time') Recent Posts 
+    .container
+        .left
+            +navbar()
+        .middle
+            .create
+                form(action='/add' method='post' onsubmit="return validateForm()")
+                    div
+                        input#text_field(type='textarea' name='post_content' placeholder='Spin your discussion' minlength='1' maxlength='250')
+                    div 
+                        select#category(name='category')
+                            option(value='vinyl') Vinyl 
+                            option(value='cd') CD 
+                            option(value='playlists') Playlists 
+                    div
+                        input#post_button(type='submit' name='post_button' value='Post')
+            if posts.length > 0
+                each post in posts 
+                    .post(id=post.id)
+                        .message 
+                            textarea(id=post.id readonly) !{post.message} 
+                        .interact_buttons
+                            .edit 
+                                button(id=post.id).edit_button
+                                    i.fa.fa-pencil(aria-hidden='true')
+                                        |        Edit Post
+                            .like 
+                                button(id=post.id).like_button
+                                    i.fa.fa-thumbs-up(aria-hidden='true')
+                                        |        Like Count: !{post.like_count}
+                            .delete 
+                                button(id=post.id).delete_button
+                                    i.fa.fa-trash(aria-hidden='true')
+                                        |        Delete Post
+    .bottom
+        button.prev Previous Page
+        button.next Next Page
+    footer.banner
+        | Property of Grant Johnston
